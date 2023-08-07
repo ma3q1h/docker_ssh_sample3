@@ -14,10 +14,10 @@ $ getent group docker
 $ sudo usermod -aG docker $USER
 ```
 
-dockerとcomposeの説明は他に任せますが, 今回のdockerの流れです
+dockerとcomposeの説明は他に任せますが, 今回のdockerの流れです  
 ![Test Image 1](/pic/2023-08-05 005852.png)
 
-また、ポートの概略です
+また、ポートの概略です  
 ![Test Image 2](/pic/2023-08-05 005930.png)
 
 今回は一般的な方法に, compose_up.shとmake_env.shが加わっています.   
