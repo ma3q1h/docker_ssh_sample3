@@ -1,0 +1,23 @@
+{
+	"name": "main",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+    "service": "main",
+	"remoteUser": "${USER}",
+	"workspaceFolder": "/home/${USER}",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"editor.minimap.enabled": false
+			},
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"ms-vscode.remote-explorer"
+			]
+		}
+	}
+}
