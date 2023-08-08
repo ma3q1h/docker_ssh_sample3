@@ -14,22 +14,6 @@ ARG DEBCONF_NOWARNINGS=yes
 
 USER root
 
-RUN apt-get update && apt-get install -yqq --no-install-recommends \
-    sudo \
-    && apt-get autoremove -yqq --purge \
-    && apt-get clean
-
-#add sudo user/root
-RUN echo "root:${ROOT_PASSWD}" | chpasswd
-RUN groupadd -g "${GID}" "${USER}"
-RUN useradd -m -d /home/${USER} -s /bin/bash -f '-1' -u ${UID} -g ${GID} ${USER} && gpasswd -a ${USER} sudo
-RUN echo "${USER}:${USER_PASSWD}" | chpasswd
-RUN echo "%${USER}    ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
-RUN echo "%${USER}    ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${USER}
-RUN chmod 0440 /etc/sudoers.d/${USER}
-RUN chsh -s /bin/bash ${USER}
-ENV PATH /home/${USER}/.local/bin:$PATH
-
 #tz
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends tzdata
 ENV TZ=Asia/Tokyo
@@ -44,6 +28,7 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     vim \
     less \
     curl \
+    sudo \
     tree \
     make \
     cmake \
@@ -56,6 +41,17 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     && apt-get autoremove -yqq --purge \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#add sudo user/root
+RUN echo "root:${ROOT_PASSWD}" | chpasswd
+RUN groupadd -g "${GID}" "${USER}"
+RUN useradd -m -d /home/${USER} -s /bin/bash -f '-1' -u ${UID} -g ${GID} ${USER} && gpasswd -a ${USER} sudo
+RUN echo "${USER}:${USER_PASSWD}" | chpasswd
+RUN echo "%${USER}    ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
+RUN echo "%${USER}    ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${USER}
+RUN chmod 0440 /etc/sudoers.d/${USER}
+RUN chsh -s /bin/bash ${USER}
+ENV PATH /home/${USER}/.local/bin:$PATH
 
 #locales
 RUN locale-gen ja_JP.UTF-8
