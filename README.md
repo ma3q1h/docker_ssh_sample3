@@ -36,17 +36,12 @@ $ docker pull {hogehoge:hogehoge}
 # dockerイメージの存在確認
 $ docker images
 ```  
-私の例ではtransformersの利用を想定したフレームワークを選んでいます （OS: Ubuntu 20.04 CUDA: 11.8 cuDNN: 8）  
-この場合, nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04というimage(リポジトリ)になりました.
-CUDAのバージョン切り替えは面倒なので, 仮想環境の作成に最適です.  
-任意のimageを入手したら, Dockerfileの先頭を編集してください. 今回の例だと以下のようになっています.  
-```dockerfile
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
-```
+私の例ではtransformersの利用を想定したフレームワーク（OS: Ubuntu 20.04 CUDA: 11.8 cuDNN: 8）を想定して, `nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04` というリポジトリになりました.
 
 # 2. make_env.sh
 .envを生成する実行ファイルです. make_env.shの`cat`部分を編集・追記してください
 ```sh
+BASE_IMAGE="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04"  # ベースとなるdocker-imageリポジトリ
 COMPOSE_PROJECT_NAME="projectname-`whoami`"    # 'projectname'部分のみを編集してください("-"は残すのがオススメ)
 USER=`whoami`                                  # ホストPCのユーザー名が展開されます
 UID=`id -u`                                    # ホストPCのUIDが展開されます
