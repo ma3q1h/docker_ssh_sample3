@@ -1,5 +1,5 @@
-#cuda11.8-cudnn8-ubuntu20.04
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 ARG USER
 ARG UID
