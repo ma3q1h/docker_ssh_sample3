@@ -24,7 +24,7 @@ services:
     volumes:
       # bind
       - $PWD/work:/home/$USER/work
-      - /home/$USER/dataset:/home/$USER/dataset
+      #- /home/$USER/dataset:/home/$USER/dataset
       # volume
       #- /home/$USER/volume
       #- named_volume:/home/$USER/named_volume
